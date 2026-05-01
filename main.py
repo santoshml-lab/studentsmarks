@@ -1,11 +1,22 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# CORS FIX (MOST IMPORTANT)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Load model
 model = joblib.load("model.joblib")
 
+# Input schema
 class Input(BaseModel):
     study_hours: float
     marks: float
