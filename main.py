@@ -18,4 +18,8 @@ def home():
 @app.post("/predict")
 def predict(data: Input):
     result = model.predict([[data.study_hours, data.marks]])[0]
-    return {"result": int(result)}
+    
+return {
+    "prediction": int(result),
+    "result": "Pass ✅" if result == 1 else "Fail ❌"
+}
